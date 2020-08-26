@@ -27,16 +27,80 @@ https://docs.microsoft.com/it-it/windows/wsl/install-win10?redirectedfrom=MSDN
 
 Step 4: Installazione container MongoDB 4.0.19 su WSL Ubuntu
 Nella WSL Ubuntu, creare la dir mongodb e, al suo interno, creare il file docker-compose.yml così valorizzato:
-   
-Lanciare il container MongoDB: 
+
+version: '3'
+services:
+  my-mongoDB:
+    image: 'mongo:4.0.19'
+    container_name: 'my-mongoDB-container'
+    volumes:
+      - db-data:/data/db
+      - mongo-config:/data/configdb
+    ports:
+      - '27017-27019:27017-27019'
+
+volumes:
+  db-data:
+  mongo-config:
+  
+Lanciare il container MongoDB con il comando:
 $ docker-compose up –d
 
 Verificare che il container sia up:
 $ docker ps
 $ docker volume ls
 $ docker inspect my-mongoDB-container
+
 Tirare giù il container:
 $ docker-compose down
 oppure:
 $ docker rm -f my-mongoDB-container
-Lanciare il processo mongod per rendere il servizio MongoDB disponibile e raggiungibile da Windows su porta standard 27017.
+
+Step 5: Installazione di un IDE MongoDB su Windows
+Si può scegliere se installare la IDE ufficiale MongoDB Compass (selezionare “on-premises”):
+https://www.mongodb.com/try/download/compass
+e/o il tool Robo 3T (scegliere Robo 3T, non Studio 3T)
+https://robomongo.org/download
+Le due IDE sono in qualche modo complementari: Compass facilità l’analisi e l’inspection delle query (anche di tipo Aggregation framework) e del database, Robo 3T è più semplice e usabile per letture e scritture.
+E’ possibile connettersi a MongoDB, attivo in ambiente WSL Ubuntu, tramite le seguenti modalità di connessione:
+MongoDB Compass:
+•	connection string: 	mongodb://localhost:27017
+Robo 3T:
+•	Type: 			direct connection
+•	Address: 		localhost:27017
+Una volta fatto accesso a MongoDB, si può (a) creare il database “snam”, creare la collection “Documents”, inserire almeno un document su tale collection.
+
+Step 5: Installazione di un IDE MongoDB su Windows
+Si può scegliere se installare la IDE ufficiale MongoDB Compass (selezionare “on-premises”):
+https://www.mongodb.com/try/download/compass
+e/o il tool Robo 3T (scegliere Robo 3T, non Studio 3T)
+https://robomongo.org/download
+Le due IDE sono in qualche modo complementari: Compass facilità l’analisi e l’inspection delle query (anche di tipo Aggregation framework) e del database, Robo 3T è più semplice e usabile per letture e scritture.
+E’ possibile connettersi a MongoDB, attivo in ambiente WSL Ubuntu, tramite le seguenti modalità di connessione:
+MongoDB Compass:
+•	connection string: 	mongodb://localhost:27017
+Robo 3T:
+•	Type: 			direct connection
+•	Address: 		localhost:27017
+Una volta fatto accesso a MongoDB, si può (a) creare il database “snam”, creare la collection “Documents”, inserire almeno un document su tale collection.
+
+Step 7: Configurazione del MongoDB Scala driver per IntelliJ IDEA
+Fare riferimento al seguente link:
+https://mongodb.github.io/mongo-scala-driver/
+che consente di utilizzare il driver all’interno del progetto IntelliJ semplicemente creando una dependency nel file build.sbt:
+
+name := "SbtScalaMongoPrimer"
+version := "0.1"
+scalaVersion := "2.13.3"
+libraryDependencies += "org.mongodb.scala" %% "mongo-scala-driver" % "2.9.0"
+
+Step 8: Esempio di applicazione Scala che legge i dati da una collection MongoDB (processo mongod su WSL Ubuntu)
+Con il driver MongoDB Scala correttamente riconosciuto all’interno di IntelliJ, sarà molto semplice scrivere la prima classe Scala che fa accesso a MongoDB ed esegue una query.
+Un buon punto di partenza è il seguente:
+http://mongodb.github.io/mongo-scala-driver/2.2/getting-started/quick-tour/
+e
+https://github.com/mongodb/mongo-scala-driver/tree/master/examples/src/test/scala/tour
+Dopo aver creato, su IntelliJ, il project SbtMongoPrimer, e il package Tour, si creano le due classi Scala (di tipo Object) Helpers e QuickTour.
+
+Il run sulla classe QuickTour esegue la connessione al db snam ed esegue una find() sulla collection documents ritornando i document in essa memorizzati.
+
