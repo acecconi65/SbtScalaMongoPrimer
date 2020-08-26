@@ -27,7 +27,7 @@ https://docs.microsoft.com/it-it/windows/wsl/install-win10?redirectedfrom=MSDN
 
 **Step 4: Installazione container MongoDB 4.0.19 su WSL Ubuntu**
 Nella WSL Ubuntu, creare la dir mongodb e, al suo interno, creare il file docker-compose.yml così valorizzato:
-
+```
 version: '3'
 services:
   my-mongoDB:
@@ -42,7 +42,7 @@ services:
 volumes:
   db-data:
   mongo-config:
-  
+```
 Lanciare il container MongoDB con il comando:
 $ docker-compose up –d
 
