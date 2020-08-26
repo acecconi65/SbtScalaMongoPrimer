@@ -18,10 +18,10 @@ Link di riferimento:
 - https://ubuntu.com/wsl
 - https://nickjanetakis.com/blog/setting-up-docker-for-windows-and-wsl-to-work-flawlessly
 - https://docs.microsoft.com/en-us/windows/wsl/tutorials/wsl-database
-WSL1:
-- https://www.microsoft.com/en-us/p/ubuntu-1804-lts/9n9tngvndl3q?activetab=pivot:overviewtab
-WSL 2:
-- https://www.microsoft.com/en-us/p/ubuntu/9nblggh4msv6?activetab=pivot:overviewtab
+- WSL1:
+https://www.microsoft.com/en-us/p/ubuntu-1804-lts/9n9tngvndl3q?activetab=pivot:overviewtab
+- WSL 2:
+https://www.microsoft.com/en-us/p/ubuntu/9nblggh4msv6?activetab=pivot:overviewtab
 Per installare WSL 2 occorre aggiornare Windows alla versione Maggio 2020:
 - https://docs.microsoft.com/it-it/windows/wsl/install-win10?redirectedfrom=MSDN
 
